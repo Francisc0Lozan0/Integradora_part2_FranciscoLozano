@@ -1,16 +1,19 @@
 package model;
 
+import java.util.Arrays;
+
 public class Galaxy {
 
     private String name_galaxy, type_galaxy;
     private Double distance_galaxy;
-    private Photo[] photos;
+    private Photo[] photosGalaxy;
 
     Galaxy(String name_galaxy, String type_galaxy, Double distance_galaxy) {
         this.name_galaxy = name_galaxy;
         this.type_galaxy = type_galaxy;
         this.distance_galaxy = distance_galaxy;
-        this.photos = new Photo[30];
+        // this.name_telescope = name_telescope;
+        this.photosGalaxy = new Photo[30];
     }
 
     /*
@@ -56,12 +59,18 @@ public class Galaxy {
     }
 
     public void addPhoto(Photo photo) {
-        for (int i = 0; i < photos.length; i++) {
-            if (photos[i] == null) {
-                photos[i] = photo;
+        for (int i = 0; i < photosGalaxy.length; i++) {
+            if (photosGalaxy[i] == null) {
+                photosGalaxy[i] = photo;
                 break;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Galaxy [name_galaxy=" + name_galaxy + ", type_galaxy=" + type_galaxy + ", distance_galaxy="
+                + distance_galaxy + ", photos=" + Arrays.toString(photosGalaxy) + "]";
     }
 
     /*
@@ -75,10 +84,12 @@ public class Galaxy {
      * 
      * Returns: A string representation of the galaxy's information.
      */
-    @Override
-    public String toString() {
-        return "The galaxy " + name_galaxy + " is of type " + type_galaxy + " and its "
-                + distance_galaxy + " light years ";
-    }
+
+    // @Override
+    // public String toString() {
+    // return "The galaxy " + name_galaxy + " is of type " + type_galaxy + " and its
+    // "
+    // + distance_galaxy + " light years ";
+    // }
 
 }

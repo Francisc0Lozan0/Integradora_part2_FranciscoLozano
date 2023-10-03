@@ -8,7 +8,7 @@ public class Executable {
 	private Scanner reader;
 	private Controller cont;
 	private int decision;
-	private String name_galaxy, type_galaxy;
+	private String name_galaxy, type_galaxy, url, name_telescope;
 	private Double distance_galaxy;
 	private boolean result, charge, rotates;;
 
@@ -138,11 +138,30 @@ public class Executable {
 
 		type_galaxy = chooseGalaxyType();
 
-		if (cont.create_galaxy(name_galaxy, distance_galaxy, type_galaxy)) {
+		boolean cut = false;
+		while (cut == false) {
+			System.out.println("Do you want add a photo? \n No \n Yes");
+			String add = reader.nextLine();
+			switch (add) {
+				case "No":
+					cut = true;
+					break;
+
+				default:
+					System.out.println("URL");
+					url = reader.nextLine();
+					System.out.println("name of the telescope");
+					name_telescope = reader.nextLine();
+					cont.createGalaxyWithPhoto(name_galaxy, distance_galaxy, type_galaxy, url, name_telescope);
+
+			}
+		}
+		if (cont.createGalaxyWithPhoto(name_galaxy, distance_galaxy, type_galaxy, url, name_telescope)) {
 			System.out.println("Galaxy information saved successfully.");
 		} else {
 			System.out.println("Error, memory is full.");
 		}
+
 	}
 
 	/*
@@ -356,9 +375,11 @@ public class Executable {
 		boolean rotates = (rotatesDecision == 1);
 
 		cont.createBlack_Hole(name, mass, distance, charge, rotates);
+		reader.next();
 	}
 
 	public void dataCreate_Planet() {
+
 		System.out.println("Enter the name of the Planet");
 		String name = reader.nextLine();
 		System.out.println("Enter the number of satellites on the planet");
@@ -371,7 +392,7 @@ public class Executable {
 		double mass = reader.nextDouble();
 		System.out.println("Enter the density of the planet");
 		double density = reader.nextDouble();
-		cont.create_Planet(name, satellites_Number,mass, radium, volume, density);
+		cont.create_Planet(name, satellites_Number, mass, radium, volume, density);
 
 	}
 

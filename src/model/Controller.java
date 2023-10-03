@@ -82,16 +82,30 @@ public class Controller {
 	 * couldn't be created.
 	 */
 
-	public boolean create_galaxy(String name_galaxy, Double distance_galaxy, String type_galaxy) {
-		Galaxy newGalaxies = new Galaxy(name_galaxy, type_galaxy, distance_galaxy);
+	public boolean createGalaxyWithPhoto(String nameGalaxy, Double distanceGalaxy, String typeGalaxy, String url,
+			String nameTelescope) {
+		if (!galaxyRepeat(nameGalaxy)) {
+			Galaxy newGalaxy = new Galaxy(nameGalaxy, typeGalaxy, distanceGalaxy);
+
+			for (int i = 0; i < num_Galaxies.length; i++) {
+				if (num_Galaxies[i] == null) {
+					num_Galaxies[i] = newGalaxy;
+					break;
+
+				}
+			}
+		}
 		for (int i = 0; i < num_Galaxies.length; i++) {
-			if (num_Galaxies[i] == null) {
-				num_Galaxies[i] = newGalaxies;
+			if (num_Galaxies[i] != null && num_Galaxies[i].getname_Galaxy().equals(nameGalaxy)) {
+
+				Photo photoGalaxy = new Photo(url, nameTelescope);
+				num_Galaxies[i].addPhoto(photoGalaxy);
 				return true;
 			}
 		}
 
 		return false;
+
 	}
 
 	/*
@@ -289,6 +303,23 @@ public class Controller {
 
 	public void addPhoto(String url, String name_telescope) {
 		Photo newPhoto = new Photo(url, name_telescope);
+	}
+
+	// public void addPhoto(Photo photo) {
+	// for (int i = 0; i < photos.length; i++) {
+	// if (photos[i] == null) {
+	// photos[i] = photo;
+	// break;
+	// }
+	// }
+	// }
+
+	public void addArrayPlanets() {
+
+	}
+
+	public void addArrayBlack_Hole() {
+
 	}
 
 	public String typeBlack_Hole(boolean charge, boolean rotates) {
