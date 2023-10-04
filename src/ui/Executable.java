@@ -374,7 +374,24 @@ public class Executable {
 		int rotatesDecision = reader.nextInt();
 		boolean rotates = (rotatesDecision == 1);
 
-		cont.createBlack_Hole(name, mass, distance, charge, rotates);
+		boolean cut = false;
+		while (cut == false) {
+			System.out.println("Do you want add a photo? \n No \n Yes");
+			String add = reader.nextLine();
+			switch (add) {
+				case "No":
+					cut = true;
+					break;
+
+				default:
+					System.out.println("URL");
+					url = reader.nextLine();
+					System.out.println("name of the telescope");
+					name_telescope = reader.nextLine();
+					cont.createBlack_Hole(name, mass, distance, charge, rotates, url, name_telescope);
+
+			}
+		}
 		reader.next();
 	}
 
@@ -392,8 +409,27 @@ public class Executable {
 		double mass = reader.nextDouble();
 		System.out.println("Enter the density of the planet");
 		double density = reader.nextDouble();
-		cont.create_Planet(name, satellites_Number, mass, radium, volume, density);
 
+		boolean cut = false;
+		while (cut == false) {
+			System.out.println("Do you want add a photo? \n No \n Yes");
+			String add = reader.nextLine();
+			switch (add) {
+				case "No":
+					cut = true;
+					break;
+
+				default:
+					System.out.println("URL");
+					url = reader.nextLine();
+					System.out.println("name of the telescope");
+					name_telescope = reader.nextLine();
+					cont.create_Planet(name, satellites_Number, mass, radium, volume,
+							density, url, name_telescope);
+
+			}
+		}
+		reader.next();
 	}
 
 	/*

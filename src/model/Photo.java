@@ -10,4 +10,9 @@ public class Photo {
 
     }
 
+    @Override
+    public String toString() {
+        return "Photo [url=" + url + ", name_telescope=" + name_telescope + "]";
+    }
+
 }

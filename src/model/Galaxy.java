@@ -5,15 +5,20 @@ import java.util.Arrays;
 public class Galaxy {
 
     private String name_galaxy, type_galaxy;
+    private int planetCount;
     private Double distance_galaxy;
     private Photo[] photosGalaxy;
+    private Planet[] planets;
+    private Black_Hole[] blackHole;
 
     Galaxy(String name_galaxy, String type_galaxy, Double distance_galaxy) {
         this.name_galaxy = name_galaxy;
         this.type_galaxy = type_galaxy;
         this.distance_galaxy = distance_galaxy;
-        // this.name_telescope = name_telescope;
         this.photosGalaxy = new Photo[30];
+        this.planets = new Planet[20];
+        this.blackHole = new Black_Hole[1];
+        this.planetCount = 0;
     }
 
     /*
@@ -26,6 +31,11 @@ public class Galaxy {
      * 
      * Returns: The name of the galaxy as a string.
      */
+
+    public int getPlanetCount() {
+        return planetCount;
+    }
+
     public String getname_Galaxy() {
         return name_galaxy;
     }
@@ -65,6 +75,14 @@ public class Galaxy {
                 break;
             }
         }
+    }
+
+    public Planet[] getPlanets() {
+        return planets;
+    }
+
+    public Black_Hole[] getBlack_Hole() {
+        return blackHole;
     }
 
     @Override

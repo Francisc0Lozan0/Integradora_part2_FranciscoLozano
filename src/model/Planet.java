@@ -1,9 +1,11 @@
 package model;
 
+import java.util.Arrays;
+
 public class Planet {
     private String name;
     private double satellites_Number, radium, mass, volume, density;
-    private Photo[] photos;
+    private Photo[] photosPlanets;
 
     public Planet(String name, double satellites_Number, double mass, double radium, double volume, double density) {
         this.name = name;
@@ -12,7 +14,8 @@ public class Planet {
         this.mass = mass;
         this.volume = volume;
         this.density = density;
-        this.photos = new Photo[50];
+        this.photosPlanets = new Photo[50];
+
     }
 
     public String getName() {
@@ -36,11 +39,19 @@ public class Planet {
     }
 
     public void addPhoto(Photo photo) {
-        for (int i = 0; i < photos.length; i++) {
-            if (photos[i] == null) {
-                photos[i] = photo;
+        for (int i = 0; i < photosPlanets.length; i++) {
+            if (photosPlanets[i] == null) {
+                photosPlanets[i] = photo;
                 break;
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "Planet [name=" + name + ", satellites_Number=" + satellites_Number + ", radium=" + radium + ", mass="
+                + mass + ", volume=" + volume + ", density=" + density + ", photosPlanets="
+                + Arrays.toString(photosPlanets) + "]";
+    }
+
 }

@@ -19,8 +19,7 @@ public class Controller {
 	private Photo photo;
 
 	private int count;
-	private String name_galaxy, type_galaxy, message, type_Hole;
-	private Double distance_galaxy;
+	private String name_galaxy, currentGalaxyName;
 	private Galaxy[] num_Galaxies;
 	private Black_Hole[] numBlack_Holes;
 	private Planet[] numPlanets;
@@ -51,9 +50,6 @@ public class Controller {
 		numBlack_Holes = new Black_Hole[50];
 		numPlanets = new Planet[50];
 		name_galaxy = "";
-		type_galaxy = "";
-		distance_galaxy = 0.0;
-		message = "";
 	}
 
 	/*
@@ -94,6 +90,7 @@ public class Controller {
 
 				}
 			}
+			currentGalaxyName = nameGalaxy;
 		}
 		for (int i = 0; i < num_Galaxies.length; i++) {
 			if (num_Galaxies[i] != null && num_Galaxies[i].getname_Galaxy().equals(nameGalaxy)) {
@@ -107,6 +104,94 @@ public class Controller {
 		return false;
 
 	}
+
+	public boolean createBlack_Hole(String name, double mass, double distance, boolean charge, boolean rotates,
+			String url, String nameTelescope) {
+		String type = typeBlack_Hole(charge, rotates);
+		if (!black_HoleRepeat(name)) {
+			Black_Hole newBlack_Hole = new Black_Hole(name, mass, distance, charge, rotates, type);
+
+			for (int i = 0; i < numBlack_Holes.length; i++) {
+				if (numBlack_Holes[i] == null) {
+					numBlack_Holes[i] = newBlack_Hole;
+					break;
+
+				}
+			}
+		}
+		for (int i = 0; i < numBlack_Holes.length; i++) {
+			if (numBlack_Holes[i] != null && num_Galaxies[i] != null && num_Galaxies[i].getname_Galaxy().equals(name)) {
+				Photo photoBlack_Hole = new Photo(url, nameTelescope);
+				numBlack_Holes[i].addPhoto(photoBlack_Hole);
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public boolean create_Planet(String name, double satellites_Number, double mass, double radium, double volume,
+			double density, String url, String name_telescope) {
+
+		int count = galaxy.getPlanetCount();
+
+		if (!planetRepeat(name)) { // ----------------------------------------------------------------
+			Planet newPlanet = new Planet(name, satellites_Number, mass, radium, volume, density);
+
+			for (int i = 0; i < num_Galaxies.length; i++) {
+				if (num_Galaxies[i] != null && num_Galaxies[i].getname_Galaxy().equals(name_galaxy)) {
+
+					Galaxy galaxy = num_Galaxies[i];
+					Planet[] planets = galaxy.getPlanets();
+					if (count < planets.length) {
+						planets[count] = newPlanet;
+						count++;
+
+						Photo photoPlanet = new Photo(url, name_telescope);
+						newPlanet.addPhoto(photoPlanet);
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	// ----------------------------------------------------------------
+
+	/*
+	 * public boolean create_Planet(String name, double satellites_Number, double
+	 * mass, double radium, double volume,
+	 * double density, String url, String name_telescope) {
+	 * if (!planetRepeat(name, name)) { //
+	 * ----------------------------------------------------------------
+	 * Planet newPlanet = new Planet(name, satellites_Number, mass, radium, volume,
+	 * density);
+	 * 
+	 * for (int i = 0; i < numPlanets.length; i++) {
+	 * if (numPlanets[i] == null) {
+	 * numPlanets[i] = newPlanet;
+	 * break;
+	 * 
+	 * }
+	 * }
+	 * }
+	 * for (int i = 0; i < numBlack_Holes.length; i++) {
+	 * if (numBlack_Holes[i] != null &&
+	 * num_Galaxies[i].getname_Galaxy().equals(name)) {
+	 * 
+	 * Photo photoGalaxy = new Photo(url, name_telescope);
+	 * numBlack_Holes[i].addPhoto(photoGalaxy);
+	 * return true;
+	 * }
+	 * }
+	 * 
+	 * return false;
+	 * }
+	 * 
+	 */
+	// ----------------------------------------------------------------
 
 	/*
 	 * Method: Check if a galaxy with the given name already exists.
@@ -131,6 +216,32 @@ public class Controller {
 			if (num_Galaxies[i] != null) {
 
 				if (num_Galaxies[i].getname_Galaxy().equals(name_galaxy)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean planetRepeat(String namePlanet) {
+		for (int i = 0; i < num_Galaxies.length; i++) {
+			if (num_Galaxies[i] != null && num_Galaxies[i].getname_Galaxy().equals(currentGalaxyName)) {
+				Planet[] planets = num_Galaxies[i].getPlanets();
+				for (int j = 0; j < planets.length; j++) {
+					if (planets[j] != null && planets[j].getName().equals(namePlanet)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean black_HoleRepeat(String nameBlack_Hole) {
+		for (int i = 0; i < numBlack_Holes.length; i++) {
+			if (numBlack_Holes[i] != null) {
+
+				if (numBlack_Holes[i].getNameHole().equals(name_galaxy)) {
 					return true;
 				}
 			}
@@ -241,7 +352,7 @@ public class Controller {
 	 */
 
 	public String specific_galaxy(String name_galaxy) {
-		message = "";
+		String message = "";
 		for (int i = 0; i < num_Galaxies.length; i++) {
 			if (num_Galaxies[i] != null && name_galaxy.equals(num_Galaxies[i].getname_Galaxy())) {
 				message = num_Galaxies[i].toString();
@@ -286,42 +397,6 @@ public class Controller {
 		return false;
 	}
 
-	public boolean createBlack_Hole(String name, double mass, double distance, boolean charge, boolean rotates) {
-		String type_Hole = typeBlack_Hole(charge, rotates);
-
-		Black_Hole newBlack_Hole = new Black_Hole(name, mass, distance, charge, rotates, type_Hole);
-
-		for (int i = 0; i < numBlack_Holes.length; i++) {
-			if (numBlack_Holes[i] == null) {
-				numBlack_Holes[i] = newBlack_Hole;
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public void addPhoto(String url, String name_telescope) {
-		Photo newPhoto = new Photo(url, name_telescope);
-	}
-
-	// public void addPhoto(Photo photo) {
-	// for (int i = 0; i < photos.length; i++) {
-	// if (photos[i] == null) {
-	// photos[i] = photo;
-	// break;
-	// }
-	// }
-	// }
-
-	public void addArrayPlanets() {
-
-	}
-
-	public void addArrayBlack_Hole() {
-
-	}
-
 	public String typeBlack_Hole(boolean charge, boolean rotates) {
 		if (!charge && !rotates) {
 			return TypeBlack_Hole.SCHWARZSCHILD.toString();
@@ -332,18 +407,6 @@ public class Controller {
 		} else {
 			return TypeBlack_Hole.KERR_NEWMAN.toString();
 		}
-	}
-
-	public boolean create_Planet(String name, double satellites_Number, double mass, double radium, double volume,
-			double density) {
-		Planet new_planet = new Planet(name, satellites_Number, mass, radium, volume, density);
-		for (int i = 0; i < numPlanets.length; i++) {
-			if (numPlanets[i] == null) {
-				numPlanets[i] = new_planet;
-				return true;
-			}
-		}
-		return false;
 	}
 
 }
