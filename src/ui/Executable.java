@@ -66,7 +66,7 @@ public class Executable {
 				"	                                                                           WELCOME\n");
 		while (decision != 0) {
 			System.out.println(
-					"select an option\n1. create galaxy\n2. see registered galaxies\n3. consult specific galaxy\n4. delete galaxy\n0. Exit");
+					"select an option\n1. create galaxy\n2. Delete planet\n3. modify data of specific planet\n4. Consult galaxy\n5. consult specific planet\n6. galaxy so far to the Earth\n7. planet with more density\n8. consult Black Hole\n9. telescope with more photos\n0. Exit");
 			decision = reader.nextInt();
 
 			switch (decision) {
@@ -77,9 +77,7 @@ public class Executable {
 
 					break;
 				case 2:
-					System.out.println("The galaxies registered so far are:");
-					cont.sortGalaxiesByDistance();
-					System.out.println(cont.generateGalaxyListMessage());
+					galaxyDeletion();
 					break;
 
 				case 3:
@@ -90,10 +88,22 @@ public class Executable {
 					break;
 
 				case 4:
-					System.out.println("The galaxies registered so far are:");
-					cont.sortGalaxiesByDistance();
-					System.out.println(cont.generateGalaxyListMessage());
-					galaxyDeletion();
+					see_specificGalaxy();
+					break;
+				case 5:
+
+					break;
+				case 6:
+
+					break;
+				case 7:
+
+					break;
+				case 8:
+
+					break;
+				case 9:
+
 					break;
 				case 0:
 					System.out.println("exiting...");

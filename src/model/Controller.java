@@ -21,8 +21,10 @@ public class Controller {
 	private int count;
 	private String name_galaxy, currentGalaxyName;
 	private Galaxy[] num_Galaxies;
+
 	private Black_Hole[] numBlack_Holes;
 	private Planet[] numPlanets;
+	
 	private String[] types = { "None", "Elliptical", "Spiral", "Lenticular", "Irregular" };
 
 	/*
@@ -46,9 +48,6 @@ public class Controller {
 
 	public Controller() {
 		reader = new Scanner(System.in);
-		num_Galaxies = new Galaxy[50];
-		numBlack_Holes = new Black_Hole[50];
-		numPlanets = new Planet[50];
 		name_galaxy = "";
 	}
 
